@@ -1,7 +1,10 @@
 asgiref==3.8.1
-Django==4.2.25
+backports.zoneinfo==0.2.1
+django==4.2.25
+djangorestframework==3.15.2
+gunicorn==23.0.0
+packaging==25.0
 python-dotenv==1.0.1
 sqlparse==0.5.3
-typing_extensions==4.13.2
+typing-extensions==4.13.2
 whitenoise==6.7.0
-gunicorn==23.0.0
