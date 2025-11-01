@@ -31,7 +31,10 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['condominio.website']
+ALLOWED_HOSTS = [
+    'condominio.website',
+    'sistema-f3fa.onrender.com'
+    ]
 
 
 # Application definition
