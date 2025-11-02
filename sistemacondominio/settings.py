@@ -33,7 +33,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'condominio.website',
-    'sistema-f3fa.onrender.com'
+    'sistema-f3fa.onrender.com',
+    'localhost'
     ]
 
 
