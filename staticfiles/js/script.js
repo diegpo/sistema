@@ -68,6 +68,22 @@ document.addEventListener('DOMContentLoaded', () => {
         veiculos: API_BASE + 'veiculos/'
     };
 
+    // -------------------- Função para pegar o CSRF Token --------------------
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     // -------------------- Funções auxiliares CRUD --------------------
     function createModal(title, fields, callback) {
         const oldModal = document.getElementById('crud-modal');
@@ -128,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderTable(entity, data) {
         let html = '';
 
-        // Container da tabela
         html += `<div class="tabela-container">`;
 
         if (data.length > 0) {
@@ -150,16 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
             html += '<p>Nenhum dado encontrado.</p>';
         }
 
-        html += `</div>`; // fecha tabela-container
-
-        // Botão criar novo
+        html += `</div>`;
         html += `<button id="create-${entity}" class="action-btn" style="margin-top:15px;">Criar Novo ${entity}</button>`;
 
         contentArea.innerHTML = html;
 
-        // -------------------- Eventos da tabela --------------------
-
-        // Editar
+        // Eventos
         document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
@@ -171,12 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Excluir
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', () => deleteItem(btn.dataset.entity, btn.dataset.id));
         });
 
-        // Criar novo
         document.getElementById(`create-${entity}`).addEventListener('click', () => {
             const fields = data.length > 0
                 ? Object.keys(data[0]).filter(k => k !== 'id').map(k => ({ name: k, label: k }))
@@ -187,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadData(entity) {
         try {
-            const res = await fetch(endpoints[entity]);
+            const res = await fetch(endpoints[entity], { credentials: 'include' });
             const data = await res.json();
             renderTable(entity, data);
         } catch (err) {
@@ -196,11 +205,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // -------------------- CRUD com CSRF seguro --------------------
     async function createItem(entity, data) {
         try {
             const res = await fetch(endpoints[entity], {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                credentials: 'include',
                 body: JSON.stringify(data)
             });
             if (res.ok) loadData(entity);
@@ -212,7 +226,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch(endpoints[entity] + id + '/', {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                credentials: 'include',
                 body: JSON.stringify(data)
             });
             if (res.ok) loadData(entity);
@@ -223,7 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
     async function deleteItem(entity, id) {
         if (!confirm(`Deseja excluir este ${entity}?`)) return;
         try {
-            const res = await fetch(endpoints[entity] + id + '/', { method: 'DELETE' });
+            const res = await fetch(endpoints[entity] + id + '/', {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                credentials: 'include'
+            });
             if (res.ok) loadData(entity);
             else console.error(await res.json());
         } catch (err) { console.error(err); }
