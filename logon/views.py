@@ -33,13 +33,37 @@ def sair(request):
 
 
 class MoradorViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint que permite visualizar ou editar moradores.
+
+    - **GET**: lista todos os moradores
+    - **POST**: adiciona um novo morador
+    - **PUT/PATCH**: atualiza um morador existente
+    - **DELETE**: remove um morador
+    """
     queryset = Morador.objects.all()
     serializer_class = MoradorSerializer
 
 class PetViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint que permite visualizar ou editar pets.
+
+    - **GET**: lista todos os pets
+    - **POST**: adiciona um novo pet
+    - **PUT/PATCH**: atualiza um pet existente
+    - **DELETE**: remove um pet
+    """
     queryset = Pet.objects.all()
     serializer_class = PetSerializer
 
 class VeiculoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint que permite visualizar ou editar veículos.
+
+    - **GET**: lista todos os veículos
+    - **POST**: adiciona um novo veículo
+    - **PUT/PATCH**: atualiza um veículo existente
+    - **DELETE**: remove um veículo
+    """    
     queryset = Veiculo.objects.all()
     serializer_class = VeiculoSerializer
