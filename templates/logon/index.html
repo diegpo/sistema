@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema Condomínio</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
@@ -15,27 +16,13 @@
 
         <form class="login-form" id="loginForm" method="POST" action="">
           {% csrf_token %}
-          <input
-            type="text"
-            name="usuario"
-            placeholder="Usuário"
-            autocomplete="username"
-            required
-          />
-          <input
-            type="password"
-            name="senha"
-            placeholder="Senha"
-            autocomplete="current-password"
-            required
-          />
+          <input type="text" name="usuario" placeholder="Usuário" autocomplete="username" required />
+          <input type="password" name="senha" placeholder="Senha" autocomplete="current-password" required />
           <div class="actions">
             <button type="submit" class="btn-action">Entrar</button>
             <button type="button" class="btn-action" id="voltar">Voltar</button>
           </div>
-          <button type="button" class="btn-action" id="esqueceu">
-            Esqueceu a senha?
-          </button>
+          <button type="button" class="btn-action" id="esqueceu">Esqueceu a senha?</button>
         </form>
         {% if error %}
         <p style="color: red">{{ error }}</p>

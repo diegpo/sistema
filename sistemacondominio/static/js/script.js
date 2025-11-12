@@ -259,3 +259,21 @@ document.addEventListener('DOMContentLoaded', () => {
     linkVeiculos?.addEventListener('click', e => { e.preventDefault(); loadData('veiculos'); });
 
 });
+
+// -------------------- versão escura --------------------
+document.getElementById('toggle-dark').addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    // Salva a preferência no navegador
+    if (document.body.classList.contains('dark-mode')) {
+      localStorage.setItem('tema', 'escuro');
+    } else {
+      localStorage.setItem('tema', 'claro');
+    }
+  });
+
+  // Mantém o tema escolhido entre recarregamentos
+  window.addEventListener('load', () => {
+    if (localStorage.getItem('tema') === 'escuro') {
+      document.body.classList.add('dark-mode');
+    }
+  });

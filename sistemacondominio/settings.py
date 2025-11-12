@@ -28,7 +28,7 @@ load_dotenv()
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'condominio.website',
@@ -84,9 +84,10 @@ WSGI_APPLICATION = 'sistemacondominio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+load_dotenv()
 DATABASES = {
     'default': dj_database_url.config(
-        default='DATABASE_URL',
+        default=os.getenv('DATABASE_URL'),
         conn_max_age=600,
         ssl_require=True
     )
