@@ -29,10 +29,10 @@ Foram criadas e projetadas apis para requisiçoes realizadas no banco de dados
 🔗 Endereços das APIs
     https://condominio.website/swagger/
     
-    Geral:      http://condominio.website:8000/api/
-    Moradores:  http://condominio.website:8000/api/moradores/
-    Pets:       http://condominio.website:8000/api/pets/
-    Veículos:   http://condominio.website:8000/api/veiculos/
+    Geral:      http://condominio.website/api/
+    Moradores:  http://condominio.website/api/moradores/
+    Pets:       http://condominio.website/api/pets/
+    Veículos:   http://condominio.website/api/veiculos/
 ```
 
 ## 🛠 Tecnologias Utilizadas
