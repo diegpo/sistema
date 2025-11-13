@@ -1,4 +1,4 @@
-# Sistema de Gestão de Condomínios - Projeto Integrador UNIvesp II
+# Sistema de Gestão de Condomínios - Projeto Integrador II - Univesp
 
 Sistema desenvolvido para o Projeto Integrador II da Universidade Univesp.
 Sistema completo para gestão de condomínios residenciais com painel administrativo moderno e responsivo.
